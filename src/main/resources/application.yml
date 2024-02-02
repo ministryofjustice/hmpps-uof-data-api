@@ -1,5 +1,5 @@
 info.app:
-  name: Hmpps Uof Data Api
+  name: Hmpps UoF Data API
   version: 1.0
 
 spring:
@@ -8,10 +8,43 @@ spring:
   codec:
     max-in-memory-size: 10MB
 
+
+  security:
+    oauth2:
+      resource-server:
+        jwt:
+          jwk-set-uri: ${api.base.url.oauth}/.well-known/jwks.json
+      client:
+        registration:
+          HMPPS_UOF_DATA_API:
+            provider: hmpps-auth
+            client-id: ${uof_data_api.api.client.id}
+            client-secret: ${uof_data_api.api.client.secret}
+            authorization-grant-type: client_credentials
+        provider:
+          hmpps-auth:
+            token-uri: ${api.base.url.oauth}/oauth/token
+
   jackson:
     date-format: "yyyy-MM-dd HH:mm:ss"
     serialization:
       WRITE_DATES_AS_TIMESTAMPS: false
+
+  jpa:
+    show-sql: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+
+  datasource:
+    url: 'jdbc:postgresql://${DATABASE_URL}/${DATABASE_NAME}?sslmode=prefer'
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    hikari:
+      pool-name: UoFDAPI-DB-CP
+      maximum-pool-size: 10
+      connection-timeout: 1000
+      validation-timeout: 500
 
 server:
   port: 8080

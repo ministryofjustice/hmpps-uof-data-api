@@ -4,3 +4,20 @@ server:
 management.endpoint:
   health.cache.time-to-live: 0
   info.cache.time-to-live: 0
+
+api:
+  base:
+    url:
+      oauth: http://localhost:8090/auth
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:9432/locations_inside_prison?sslmode=prefer
+    username: locations_inside_prison
+    password: locations_inside_prison
+
+  main:
+    allow-bean-definition-overriding: true
+
+  jpa:
+    show-sql: true
