@@ -13,5 +13,18 @@ services:
       - SERVER_PORT=8080
       - SPRING_PROFILES_ACTIVE=dev
 
+  use-of-force-db:
+    image: postgres
+    networks:
+      - hmpps
+    container_name: use-of-force-db
+    restart: always
+    ports:
+      - "9432:5432"
+    environment:
+      - POSTGRES_PASSWORD=use-of-force
+      - POSTGRES_USER=use-of-force
+      - POSTGRES_DB=use-of-force
+
 networks:
   hmpps:
