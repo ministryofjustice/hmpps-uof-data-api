@@ -147,15 +147,12 @@ class ReportResource(
     @Schema(description = "NOMIS Prison Reference Number", example = "G8133UA", required = true)
     @RequestParam(name = "prn", required = true)
     prn: String,
-
     @Schema(description = "nDelius Case Reference Number", example = "1234", required = false)
     @RequestParam(name = "crn", required = false)
     crn: String?,
-
     @Schema(description = "Optional parameter denoting minimum date of event occurrence which should be returned in the response", example = "G8133UA", required = false)
     @RequestParam(name = "fromDate", required = false)
     fromDate: LocalDate?,
-
     @Schema(description = "Optional parameter denoting maximum date of event occurrence which should be returned in the response", example = "G8133UA", required = false)
     @RequestParam(name = "toDate", required = false)
     toDate: LocalDate?,
