@@ -11,11 +11,22 @@ parameters:
     type: string
     default: move-a-prisoner-digital
 
+  java-version:
+    type: string
+    default: "21.0"
+  postgres-version:
+    type: string
+    default: "15"
+
+
 jobs:
   validate:
     executor:
-      name: hmpps/java
-      tag: "21.0"
+      name: hmpps/java_postgres
+      jdk_tag: << pipeline.parameters.java-version >>
+      postgres_tag: << pipeline.parameters.postgres-version >>
+      postgres_username: "use_of_force"
+      postgres_password: "use_of_force"
     steps:
       - checkout
       - restore_cache:

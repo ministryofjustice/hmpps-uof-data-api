@@ -35,9 +35,9 @@ class OpenApiConfiguration(
       ),
     )
     .info(
-      Info().title("Locations Inside Prison API")
+      Info().title("HMPPS Use of Force data API")
         .version(version)
-        .description("API for viewing and managing locations inside a prison")
+        .description("API for read-only access to Use of Force data")
         .contact(Contact().name("HMPPS Digital Studio").email("feedback@digital.justice.gov.uk")),
     )
     .components(
@@ -58,7 +58,7 @@ class OpenApiConfiguration(
             .openIdConnectUrl("$oauthUrl/.well-known/openid-configuration"),
         ),
     )
-    .addSecurityItem(SecurityRequirement().addList("bearer-jwt", listOf("read", "write")))
+    .addSecurityItem(SecurityRequirement().addList("bearer-jwt", listOf("read")))
     .addSecurityItem(SecurityRequirement().addList("hmpps-auth"))
 
   fun getFlows(): OAuthFlows {
@@ -67,7 +67,6 @@ class OpenApiConfiguration(
     clientCredflow.tokenUrl = "$oauthUrl/oauth/token"
     val scopes = Scopes()
       .addString("read", "Allows read of data")
-      .addString("write", "Allows write of data")
     clientCredflow.scopes = scopes
     val authflow = OAuthFlow()
     authflow.authorizationUrl = "$oauthUrl/oauth/authorize"
