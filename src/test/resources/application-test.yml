@@ -12,7 +12,7 @@ api:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:9432/use-of-force?sslmode=prefer
+    url: jdbc:postgresql://localhost:5432/use-of-force?sslmode=prefer
     username: use-of-force
     password: use-of-force
 
