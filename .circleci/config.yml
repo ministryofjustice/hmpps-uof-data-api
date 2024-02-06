@@ -25,8 +25,8 @@ jobs:
       name: hmpps/java_postgres
       jdk_tag: << pipeline.parameters.java-version >>
       postgres_tag: << pipeline.parameters.postgres-version >>
-      postgres_username: "use_of_force"
-      postgres_password: "use_of_force"
+      postgres_username: "use-of-force"
+      postgres_password: "use-of-force"
     steps:
       - checkout
       - restore_cache:
