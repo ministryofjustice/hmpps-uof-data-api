@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
 import jakarta.persistence.Table
+import org.hibernate.annotations.ColumnTransformer
 import java.time.LocalDateTime
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.Report as ReportDto
 
@@ -12,6 +13,7 @@ import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.Report as ReportDto
 @Table(name = "report")
 class ReportDetail(
   id: Long,
+  @ColumnTransformer(write = "?::jsonb")
   private val formResponse: String,
   userId: String,
   sequenceNo: Int,
