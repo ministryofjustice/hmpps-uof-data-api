@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.report (
+CREATE TABLE IF NOT EXISTS report (
     id integer NOT NULL,
     form_response jsonb,
     user_id character varying(32),
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.report (
     deleted timestamp with time zone
 );
 
-CREATE SEQUENCE IF NOT EXISTS public.form_id_seq
+CREATE SEQUENCE IF NOT EXISTS form_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -23,7 +23,7 @@ CREATE SEQUENCE IF NOT EXISTS public.form_id_seq
     NO MAXVALUE
     CACHE 1;
 
-ALTER TABLE ONLY public.report ALTER COLUMN id SET DEFAULT nextval('public.form_id_seq'::regclass);
+ALTER TABLE ONLY report ALTER COLUMN id SET DEFAULT nextval('form_id_seq'::regclass);
 
-ALTER TABLE ONLY public.report
+ALTER TABLE ONLY report
     ADD CONSTRAINT form_pkey PRIMARY KEY (id);

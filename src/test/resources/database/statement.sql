@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.statement (
+CREATE TABLE IF NOT EXISTS statement (
     id integer NOT NULL,
     report_id integer NOT NULL,
     user_id character varying(255),
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS public.statement (
     removal_requested_date timestamp with time zone
 );
 
-CREATE SEQUENCE IF NOT EXISTS public.involved_staff_id_seq
+CREATE SEQUENCE IF NOT EXISTS involved_staff_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
@@ -29,8 +29,8 @@ CREATE SEQUENCE IF NOT EXISTS public.involved_staff_id_seq
     NO MAXVALUE
     CACHE 1;
 
-ALTER TABLE ONLY public.statement ALTER COLUMN id SET DEFAULT nextval('public.involved_staff_id_seq'::regclass);
+ALTER TABLE ONLY statement ALTER COLUMN id SET DEFAULT nextval('involved_staff_id_seq'::regclass);
 
-ALTER TABLE ONLY public.statement
+ALTER TABLE ONLY statement
     ADD CONSTRAINT involved_staff_pkey PRIMARY KEY (id);
 
