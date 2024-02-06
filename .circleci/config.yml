@@ -27,6 +27,7 @@ jobs:
       postgres_tag: << pipeline.parameters.postgres-version >>
       postgres_username: "use-of-force"
       postgres_password: "use-of-force"
+      postgres_db: "use-of-force"
     steps:
       - checkout
       - restore_cache:
