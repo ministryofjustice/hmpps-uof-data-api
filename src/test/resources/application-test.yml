@@ -4,3 +4,23 @@ server:
 management.endpoint:
   health.cache.time-to-live: 0
   info.cache.time-to-live: 0
+
+api:
+  base:
+    url:
+      oauth: http://localhost:8090/auth
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/use-of-force?sslmode=prefer
+    username: use-of-force
+    password: use-of-force
+
+  main:
+    allow-bean-definition-overriding: true
+
+  jpa:
+    show-sql: true
+
+  flyway:
+    enabled: true

@@ -6,22 +6,33 @@ orbs:
 parameters:
   alerts-slack-channel:
     type: string
-    default: PIPELINE_SECURITY_SLACK_CHANNEL
+    default: move-a-prisoner-dev-private
   releases-slack-channel:
     type: string
-    default: SLACK_RELEASES_CHANNEL
+    default: move-a-prisoner-digital
+
+  java-version:
+    type: string
+    default: "21.0"
+  postgres-version:
+    type: string
+    default: "15"
+
 
 jobs:
   validate:
     executor:
-      name: hmpps/java
-      tag: "21.0"
+      name: hmpps/java_postgres
+      jdk_tag: << pipeline.parameters.java-version >>
+      postgres_tag: << pipeline.parameters.postgres-version >>
+      postgres_username: "use-of-force"
+      postgres_password: "use-of-force"
+      postgres_db: "use-of-force"
     steps:
       - checkout
       - restore_cache:
           keys:
             - gradle-{{ checksum "build.gradle.kts" }}
-            - gradle-
       - run:
           command: ./gradlew check
       - save_cache:
@@ -78,7 +89,7 @@ workflows:
 #          pipeline_number: <<pipeline.number>>
 #          context:
 #            - hmpps-common-vars
-#            - hmpps-template-kotlin-preprod
+#            - hmpps-uof-data-api-preprod
 #          requires:
 #            - request-preprod-approval
 #          helm_timeout: 5m
@@ -97,7 +108,7 @@ workflows:
 #          slack_channel_name: << pipeline.parameters.releases-slack-channel >>
 #          context:
 #            - hmpps-common-vars
-#            - hmpps-template-kotlin-prod
+#            - hmpps-uof-data-api-prod
 #          requires:
 #            - request-prod-approval
 #          helm_timeout: 5m
@@ -105,7 +116,7 @@ workflows:
   security:
     triggers:
       - schedule:
-          cron: "15 7 * * 1-5"
+          cron: "53 8 * * 1-5"
           filters:
             branches:
               only:
@@ -129,7 +140,7 @@ workflows:
   security-weekly:
     triggers:
       - schedule:
-          cron: "0 5 * * 1"
+          cron: "52 8 * * 1"
           filters:
             branches:
               only:

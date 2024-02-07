@@ -1,10 +1,10 @@
 version: "3"
 services:
-  hmpps-template-kotlin:
+  hmpps-uof-data-api:
     build:
       context: .
     network_mode: "host"
-    container_name: hmpps-template-kotlin
+    container_name: hmpps-uof-data-api
     ports:
       - "8081:8080"
     healthcheck:
@@ -12,6 +12,19 @@ services:
     environment:
       - SERVER_PORT=8080
       - SPRING_PROFILES_ACTIVE=dev
+
+  use-of-force-db:
+    image: postgres
+    networks:
+      - hmpps
+    container_name: use-of-force-db
+    restart: always
+    ports:
+      - "9432:5432"
+    environment:
+      - POSTGRES_PASSWORD=use-of-force
+      - POSTGRES_USER=use-of-force
+      - POSTGRES_DB=use-of-force
 
 networks:
   hmpps:
