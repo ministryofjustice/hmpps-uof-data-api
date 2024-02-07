@@ -24,6 +24,7 @@ dependencies {
   testImplementation("io.swagger.parser.v3:swagger-parser:2.1.20")
   testImplementation("io.jsonwebtoken:jjwt-impl:0.12.3")
   testImplementation("io.jsonwebtoken:jjwt-jackson:0.12.3")
+  testImplementation("org.flywaydb:flyway-core")
 
   runtimeOnly("org.postgresql:postgresql:42.5.4")
   testRuntimeOnly("com.h2database:h2:2.2.220")
