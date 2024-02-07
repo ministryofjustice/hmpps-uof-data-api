@@ -1,14 +1,11 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.resource
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
-import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.test.context.jdbc.Sql
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.IntegrationTestBase
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportSummary
@@ -163,21 +160,6 @@ class ReportResourceIT : IntegrationTestBase() {
 
         assertThat(response.size).isEqualTo(0)
       }
-    }
-  }
-
-  companion object {
-    private val log = LoggerFactory.getLogger(this::class.java)
-
-    @JvmStatic
-    @BeforeAll
-    @Sql(
-      "classpath:database/report.sql",
-      "classpath:database/statement.sql",
-      "classpath:database/statement_amendment.sql",
-    )
-    fun ensureTables() {
-      log.info("Ensuring tables are created")
     }
   }
 }

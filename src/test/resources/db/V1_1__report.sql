@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS report (
+CREATE TABLE report (
     id integer NOT NULL,
     form_response jsonb,
     user_id character varying(32),
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS report (
     deleted timestamp with time zone
 );
 
-CREATE SEQUENCE IF NOT EXISTS form_id_seq
+CREATE SEQUENCE form_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1

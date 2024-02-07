@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS statement (
+CREATE TABLE statement (
     id integer NOT NULL,
     report_id integer NOT NULL,
     user_id character varying(255),
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS statement (
     removal_requested_date timestamp with time zone
 );
 
-CREATE SEQUENCE IF NOT EXISTS involved_staff_id_seq
+CREATE SEQUENCE involved_staff_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1

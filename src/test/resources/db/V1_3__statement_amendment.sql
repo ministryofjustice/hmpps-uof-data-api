@@ -1,5 +1,5 @@
 
-CREATE TABLE IF NOT EXISTS statement_amendments (
+CREATE TABLE statement_amendments (
     id integer NOT NULL,
     statement_id integer NOT NULL,
     additional_comment text NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS statement_amendments (
     deleted timestamp with time zone
 );
 
-CREATE SEQUENCE IF NOT EXISTS statement_amendments_id_seq
+CREATE SEQUENCE statement_amendments_id_seq
     AS integer
     START WITH 1
     INCREMENT BY 1
