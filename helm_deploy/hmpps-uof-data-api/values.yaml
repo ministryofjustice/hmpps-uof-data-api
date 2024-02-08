@@ -45,16 +45,5 @@ generic-service:
     groups:
       - internal
 
-  podSecurityContext:
-    fsGroup: 2000
-
-  securityContext:
-     capabilities:
-       drop:
-       - ALL
-     readOnlyRootFilesystem: true
-     runAsNonRoot: true
-     runAsUser: 2000
-
 generic-prometheus-alerts:
   targetApplication: hmpps-uof-data-api
