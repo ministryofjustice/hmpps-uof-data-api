@@ -35,7 +35,7 @@ generic-service:
       SPRING_DATASOURCE_USERNAME: "database_username"
       SPRING_DATASOURCE_PASSWORD: "database_password"
       DATABASE_NAME: "database_name"
-      DATABASE_ENDPOINT: "rds_instance_address"
+      DATABASE_URL: "rds_instance_address"
     use-of-force:
       UOF_DATA_API_API_CLIENT_ID: "API_CLIENT_ID"
       UOF_DATA_API_API_CLIENT_SECRET: "API_CLIENT_SECRET"
