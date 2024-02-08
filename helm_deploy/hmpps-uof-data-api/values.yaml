@@ -47,16 +47,16 @@ generic-service:
     SecRuleUpdateActionById 959100 "t:none,deny,status:406,logdata:%{SERVER_NAME}"
     SecAction "id:900000,phase:1,nolog,pass,t:none,setvar:tx.paranoia_level=2"
 
-  podSecurityContext:
-    fsGroup: 2000
+podSecurityContext:
+  fsGroup: 2000
 
-  securityContext:
-     capabilities:
-       drop:
-       - ALL
-     readOnlyRootFilesystem: true
-     runAsNonRoot: true
-     runAsUser: 2000
+securityContext:
+   capabilities:
+     drop:
+     - ALL
+   readOnlyRootFilesystem: true
+   runAsNonRoot: true
+   runAsUser: 2000
 
 generic-prometheus-alerts:
   targetApplication: hmpps-uof-data-api
