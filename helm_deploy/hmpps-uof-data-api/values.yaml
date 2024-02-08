@@ -39,7 +39,7 @@ generic-service:
   allowlist:
     groups:
       - internal
-
+      -
   modsecurity_enabled: true
   modsecurity_snippet: |
     SecRuleEngine DetectionOnly
