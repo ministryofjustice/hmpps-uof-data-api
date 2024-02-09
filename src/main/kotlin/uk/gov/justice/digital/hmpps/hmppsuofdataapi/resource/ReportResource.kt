@@ -33,10 +33,10 @@ class ReportResource(
 ) {
   @GetMapping("report/{id}")
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasRole('ROLE_USE_OF_FORCE_REVIEWER')")
+  @PreAuthorize("hasRole('ROLE_SAR_DATA_ACCESS')")
   @Operation(
     summary = "Returns report and optionally the associated statements for this ID",
-    description = "Requires role TBD",
+    description = "Requires role SAR_DATA_ACCESS",
     responses = [
       ApiResponse(
         responseCode = "200",
@@ -70,10 +70,10 @@ class ReportResource(
 
   @GetMapping("/prisoner/{offenderNumber}/reports")
   @ResponseStatus(HttpStatus.OK)
-  @PreAuthorize("hasRole('ROLE_USE_OF_FORCE_REVIEWER')")
+  @PreAuthorize("hasRole('ROLE_SAR_DATA_ACCESS')")
   @Operation(
     summary = "Returns report and optionally the associated statements for this ID",
-    description = "Requires role TBD",
+    description = "Requires role SAR_DATA_ACCESS",
     responses = [
       ApiResponse(
         responseCode = "200",
@@ -109,10 +109,10 @@ class ReportResource(
   @GetMapping("/subject-access-request")
   @ResponseStatus(HttpStatus.OK)
   @Validated
-  @PreAuthorize("hasRole('ROLE_USE_OF_FORCE_REVIEWER')")
+  @PreAuthorize("hasRole('ROLE_SAR_DATA_ACCESS')")
   @Operation(
     summary = "Returns report and optionally the associated statements for this ID",
-    description = "Requires role TBD",
+    description = "Requires role SAR_DATA_ACCESS",
     responses = [
       ApiResponse(
         responseCode = "200",
