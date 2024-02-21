@@ -26,7 +26,7 @@ class ResourceServerConfiguration {
           "/csrf",
           "/health/**",
           "/info",
-          "/v1/api-docs/**",
+          "/v3/api-docs/**",
           "/swagger-ui/**",
           "/swagger-ui.html",
         ).forEach { authorize(it, permitAll) }
