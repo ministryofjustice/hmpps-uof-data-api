@@ -26,7 +26,7 @@ dependencies {
   testImplementation("io.jsonwebtoken:jjwt-jackson:0.12.3")
   testImplementation("org.flywaydb:flyway-core")
 
-  runtimeOnly("org.postgresql:postgresql:42.5.4")
+  runtimeOnly("org.postgresql:postgresql:42.7.2")
   testRuntimeOnly("com.h2database:h2:2.2.220")
 }
 
