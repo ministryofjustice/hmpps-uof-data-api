@@ -1,12 +1,14 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.service
 
+import kotlinx.coroutines.coroutineScope
 import org.springframework.stereotype.Service
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.config.NoDataException
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.Report
-import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.SubjectAccessResponse
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportSummaryRepository
+import uk.gov.justice.hmpps.kotlin.sar.HmppsPrisonSubjectAccessRequestReactiveService
+import uk.gov.justice.hmpps.kotlin.sar.HmppsSubjectAccessRequestContent
 import java.time.LocalDate
 import kotlin.jvm.optionals.getOrNull
 
@@ -14,7 +16,7 @@ import kotlin.jvm.optionals.getOrNull
 class ReportService(
   private val reportRepository: ReportRepository,
   private val reportSummaryRepository: ReportSummaryRepository,
-) {
+) : HmppsPrisonSubjectAccessRequestReactiveService {
   fun getReport(reportId: Long, includeStatements: Boolean): Report? {
     return reportRepository.findById(reportId).getOrNull()?.toDto(includeStatements, true)
   }
@@ -31,29 +33,39 @@ class ReportService(
     return reportRepository.findAllByOffenderNo(offenderNumber)
   }
 
-  fun getReportsForSubjectAccess(offenderNumber: String, fromDate: LocalDate?, toDate: LocalDate?): SubjectAccessResponse {
+  override suspend fun getPrisonContentFor(prn: String, fromDate: LocalDate?, toDate: LocalDate?): HmppsSubjectAccessRequestContent? {
+    return wrapInSubjectAccessFormat(prn, getReportsForSubjectAccess(prn, fromDate, toDate))
+  }
+
+  suspend fun getReportsForSubjectAccess(prn: String, fromDate: LocalDate?, toDate: LocalDate?): List<ReportDetail> = coroutineScope {
     if (fromDate != null && toDate != null) {
-      return wrapInSubjectAccessFormat(offenderNumber, getReportsByOffenderNumberAndDateWindow(offenderNumber, fromDate, toDate))
+      return@coroutineScope getReportsByOffenderNumberAndDateWindow(prn, fromDate, toDate)
     }
     if (fromDate != null) {
-      return wrapInSubjectAccessFormat(offenderNumber, reportRepository.findAllByOffenderNoAndIncidentDateAfter(offenderNumber, fromDate.atStartOfDay()))
+      return@coroutineScope reportRepository.findAllByOffenderNoAndIncidentDateAfter(prn, fromDate.atStartOfDay())
     }
     if (toDate != null) {
-      return wrapInSubjectAccessFormat(offenderNumber, reportRepository.findAllByOffenderNoAndIncidentDateBefore(offenderNumber, toDate.plusDays(1).atStartOfDay()))
+      return@coroutineScope reportRepository.findAllByOffenderNoAndIncidentDateBefore(prn, toDate.plusDays(1).atStartOfDay())
     }
-
-    return wrapInSubjectAccessFormat(offenderNumber, getReportDetailByOffenderNumber(offenderNumber))
+    return@coroutineScope getReportDetailByOffenderNumber(prn)
   }
 
   fun getReportsByOffenderNumberAndDateWindow(offenderNumber: String, fromDate: LocalDate, toDate: LocalDate): List<ReportDetail> {
     return reportRepository.findAllByOffenderNoAndIncidentDateBetween(offenderNumber, fromDate.atStartOfDay(), toDate.atStartOfDay())
   }
 
-  fun wrapInSubjectAccessFormat(offenderNumber: String, reports: List<ReportDetail>): SubjectAccessResponse {
+  fun wrapInSubjectAccessFormat(offenderNumber: String, reports: List<ReportDetail>): HmppsSubjectAccessRequestContent? {
     if (reports.isEmpty()) {
       throw NoDataException(offenderNumber)
     } else {
-      return SubjectAccessResponse(content = reports.map { it.toDto(true, true) })
+      return HmppsSubjectAccessRequestContent(
+        content = reports.map {
+          it.toDto(
+            includeStatements = true,
+            includeFormResponse = true,
+          )
+        },
+      )
     }
   }
 }
