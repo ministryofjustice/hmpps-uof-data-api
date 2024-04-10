@@ -2,7 +2,6 @@ package uk.gov.justice.digital.hmpps.hmppsuofdataapi.service
 
 import kotlinx.coroutines.coroutineScope
 import org.springframework.stereotype.Service
-import uk.gov.justice.digital.hmpps.hmppsuofdataapi.config.NoDataException
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.Report
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
@@ -55,17 +54,13 @@ class ReportService(
   }
 
   fun wrapInSubjectAccessFormat(offenderNumber: String, reports: List<ReportDetail>): HmppsSubjectAccessRequestContent? {
-    if (reports.isEmpty()) {
-      throw NoDataException(offenderNumber)
-    } else {
-      return HmppsSubjectAccessRequestContent(
-        content = reports.map {
-          it.toDto(
-            includeStatements = true,
-            includeFormResponse = true,
-          )
-        },
-      )
-    }
+    return HmppsSubjectAccessRequestContent(
+      content = reports.map {
+        it.toDto(
+          includeStatements = true,
+          includeFormResponse = true,
+        )
+      },
+    )
   }
 }
