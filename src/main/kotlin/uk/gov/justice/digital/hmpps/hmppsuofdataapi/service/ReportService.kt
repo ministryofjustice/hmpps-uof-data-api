@@ -54,13 +54,17 @@ class ReportService(
   }
 
   fun wrapInSubjectAccessFormat(offenderNumber: String, reports: List<ReportDetail>): HmppsSubjectAccessRequestContent? {
-    return HmppsSubjectAccessRequestContent(
-      content = reports.map {
-        it.toDto(
-          includeStatements = true,
-          includeFormResponse = true,
-        )
-      },
-    )
+    return if (reports.isEmpty()) {
+      null
+    } else {
+      HmppsSubjectAccessRequestContent(
+        content = reports.map {
+          it.toDto(
+            includeStatements = true,
+            includeFormResponse = true,
+          )
+        },
+      )
+    }
   }
 }
