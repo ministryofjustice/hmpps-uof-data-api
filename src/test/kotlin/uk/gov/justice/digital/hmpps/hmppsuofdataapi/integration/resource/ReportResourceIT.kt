@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.resource
 
 import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.within
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -11,15 +12,47 @@ import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportSummary
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
 import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
 
 class ReportResourceIT : IntegrationTestBase() {
 
   @Autowired
   lateinit var repo: ReportRepository
+  lateinit var expectedReport: ReportSummary
 
   @BeforeEach
   fun setup() {
     repo.deleteAll()
+
+    val id = 1L
+    val userId = "user_id"
+    val sequenceNo = 1
+    val bookingId = 1234L
+    val createdDate = LocalDateTime.now()
+    val status = "IN_PROGRESS"
+    val submittedDate: LocalDateTime? = null
+    val offenderNo = "GU1234A"
+    val reporterName = "reporter_name"
+    val incidentDate = LocalDateTime.of(2024, 1, 1, 14, 0)
+    val agencyId = "MDI"
+    val updatedDate = LocalDateTime.now()
+    val deleted: LocalDateTime? = null
+
+    expectedReport = ReportSummary(
+      id = id,
+      userId = userId,
+      sequenceNo = sequenceNo,
+      bookingId = bookingId,
+      createdDate = createdDate,
+      status = status,
+      submittedDate = submittedDate,
+      offenderNo = offenderNo,
+      reporterName = reporterName,
+      incidentDate = incidentDate,
+      agencyId = agencyId,
+      updatedDate = updatedDate,
+      deleted = deleted,
+    )
   }
 
   private fun buildReport(
@@ -158,6 +191,21 @@ class ReportResourceIT : IntegrationTestBase() {
           .returnResult().responseBody!!
 
         assertThat(response.size).isEqualTo(1)
+
+        val actualReport = response.first()
+        assertThat(actualReport.id).isEqualTo(expectedReport.id)
+        assertThat(actualReport.userId).isEqualTo(expectedReport.userId)
+        assertThat(actualReport.sequenceNo).isEqualTo(expectedReport.sequenceNo)
+        assertThat(actualReport.bookingId).isEqualTo(expectedReport.bookingId)
+        assertThat(actualReport.createdDate).isCloseTo(expectedReport.createdDate, within(1, ChronoUnit.SECONDS))
+        assertThat(actualReport.status).isEqualTo(expectedReport.status)
+        assertThat(actualReport.submittedDate).isEqualTo(expectedReport.submittedDate)
+        assertThat(actualReport.offenderNo).isEqualTo(expectedReport.offenderNo)
+        assertThat(actualReport.reporterName).isEqualTo(expectedReport.reporterName)
+        assertThat(actualReport.incidentDate).isEqualTo(expectedReport.incidentDate)
+        assertThat(actualReport.agencyId).isEqualTo(expectedReport.agencyId)
+        assertThat(actualReport.updatedDate).isCloseTo(expectedReport.updatedDate, within(1, ChronoUnit.SECONDS))
+        assertThat(actualReport.deleted).isEqualTo(expectedReport.deleted)
       }
 
       @Test
