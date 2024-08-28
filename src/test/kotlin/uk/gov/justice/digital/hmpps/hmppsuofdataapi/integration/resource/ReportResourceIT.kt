@@ -24,34 +24,20 @@ class ReportResourceIT : IntegrationTestBase() {
   fun setup() {
     repo.deleteAll()
 
-    val id = 1L
-    val userId = "user_id"
-    val sequenceNo = 1
-    val bookingId = 1234L
-    val createdDate = LocalDateTime.now()
-    val status = "IN_PROGRESS"
-    val submittedDate: LocalDateTime? = null
-    val offenderNo = "GU1234A"
-    val reporterName = "reporter_name"
-    val incidentDate = LocalDateTime.of(2024, 1, 1, 14, 0)
-    val agencyId = "MDI"
-    val updatedDate = LocalDateTime.now()
-    val deleted: LocalDateTime? = null
-
     expectedReport = ReportSummary(
-      id = id,
-      userId = userId,
-      sequenceNo = sequenceNo,
-      bookingId = bookingId,
-      createdDate = createdDate,
-      status = status,
-      submittedDate = submittedDate,
-      offenderNo = offenderNo,
-      reporterName = reporterName,
-      incidentDate = incidentDate,
-      agencyId = agencyId,
-      updatedDate = updatedDate,
-      deleted = deleted,
+      id = 1L,
+      userId = "user_id",
+      sequenceNo = 1,
+      bookingId = 1234L,
+      createdDate = LocalDateTime.now(),
+      status = "IN_PROGRESS",
+      submittedDate = null,
+      offenderNo = "GU1234A",
+      reporterName = "reporter_name",
+      incidentDate = LocalDateTime.of(2024, 1, 1, 14, 0),
+      agencyId = "MDI",
+      updatedDate = LocalDateTime.now(),
+      deleted = null,
     )
   }
 
