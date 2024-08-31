@@ -7,6 +7,8 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.Statement
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.StatementAmendment
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.IntegrationTestBase
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportSummary
@@ -19,6 +21,44 @@ class ReportResourceIT : IntegrationTestBase() {
   @Autowired
   lateinit var repo: ReportRepository
   lateinit var expectedReport: ReportSummary
+
+  val amendmentId = 345L
+  final val statementId = 123L
+  val dateSubmitted = LocalDateTime.now()
+  val deleted = null
+  val additionalComment = "This is an additional comment I originally said left leg, but it was the right leg"
+
+  final val statementAmendment = StatementAmendment(
+    id = 345L,
+    statementId = 123L,
+    dateSubmitted = LocalDateTime.now(),
+    deleted = null,
+    additionalComment = "This is an additional comment I originally said left leg, but it was the right leg",
+  )
+
+  val statement = Statement(
+    id = 1L,
+    reportId = 2L,
+    createdDate = LocalDateTime.now(),
+    updatedDate = LocalDateTime.now(),
+    submittedDate = LocalDateTime.now(),
+    deleted = null,
+    nextReminderDate = null,
+    overdueDate = null,
+    removalRequestedDate = null,
+    userId = "aleman123",
+    name = "John Ale",
+    email = "john.ale@justice.gov.uk",
+    statementStatus = "PENDING",
+    lastTrainingMonth = 7,
+    lastTrainingYear = 2023,
+    jobStartYear = 2020,
+    staffId = 123,
+    inProgress = true,
+    removalRequestedReason = "Some reason",
+    statement = "This is a statement.",
+    statementAmendments = mutableListOf(statementAmendment),
+  )
 
   @BeforeEach
   fun setup() {
@@ -59,6 +99,30 @@ class ReportResourceIT : IntegrationTestBase() {
       "MDI",
       LocalDateTime.now(),
       null,
+
+    )
+  }
+
+  private fun buildReportIncludeStatements(
+    id: Long,
+    offenderNumber: String,
+    includeStatement: Boolean,
+  ): ReportDetail {
+    return ReportDetail(
+      id, "{}",
+      "user_id",
+      1,
+      1234,
+      LocalDateTime.now(),
+      "IN_PROGRESS",
+      null,
+      offenderNumber,
+      "reporter_name",
+      LocalDateTime.of(2024, 1, 1, 14, 0),
+      "MDI",
+      LocalDateTime.now(),
+      null,
+      mutableListOf(),
     )
   }
 
@@ -165,6 +229,7 @@ class ReportResourceIT : IntegrationTestBase() {
       @BeforeEach
       fun insertReport() {
         repo.save(buildReport(1, "GU1234A"))
+        repo.save(buildReportIncludeStatements(1, "GU1234B", true))
       }
 
       @Test
@@ -197,7 +262,7 @@ class ReportResourceIT : IntegrationTestBase() {
       @Test
       fun `can retrieve reports by prisoner number with report include Statements and include Form Response`() {
         val response: List<ReportSummary> =
-          webTestClient.get().uri("/prisoner/GU1234A/reports?includeStatements=true&includeFormResponse=true")
+          webTestClient.get().uri("/prisoner/GU1234B/reports?includeStatements=true&includeFormResponse=true")
             .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
             .exchange()
             .expectStatus().isOk
@@ -205,6 +270,7 @@ class ReportResourceIT : IntegrationTestBase() {
             .returnResult().responseBody!!
 
         assertThat(response.size).isEqualTo(1)
+        val actualReport = response.first()
       }
 
       @Test
