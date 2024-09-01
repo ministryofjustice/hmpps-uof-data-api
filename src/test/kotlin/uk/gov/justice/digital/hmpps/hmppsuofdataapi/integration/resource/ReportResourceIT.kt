@@ -12,21 +12,29 @@ import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportSummary
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.StatementAmendment
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.StatementAmendmentRepository
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.StatementRepository
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
-import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportSummaryRepository
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.Statement as StatementDataClass
 
 class ReportResourceIT : IntegrationTestBase() {
 
   @Autowired
   lateinit var repo: ReportRepository
-  lateinit var reportSummary: ReportSummaryRepository
+
+  @Autowired
+  lateinit var statementRepository: StatementRepository
+
+  @Autowired
+  lateinit var statementAmendmentRepository: StatementAmendmentRepository
+
   lateinit var expectedReport: ReportSummary
+  lateinit var expectedReportwithStatements: ReportSummary
 
   final val statementAmendment = StatementAmendment(
-    id = 345L,
-    statementId = 123L,
+    id = 1L,
+    statementId = 1,
     dateSubmitted = LocalDateTime.now(),
     deleted = null,
     additionalComment = "This is an additional comment I originally said left leg, but it was the right leg",
@@ -75,6 +83,22 @@ class ReportResourceIT : IntegrationTestBase() {
       updatedDate = LocalDateTime.now(),
       deleted = null,
     )
+
+    expectedReportwithStatements = ReportSummary(
+      id = 2L,
+      userId = "user_id",
+      sequenceNo = 1,
+      bookingId = 1235L,
+      createdDate = LocalDateTime.now(),
+      status = "IN_PROGRESS",
+      submittedDate = null,
+      offenderNo = "GU1234B",
+      reporterName = "reporter_name",
+      incidentDate = LocalDateTime.of(2024, 1, 1, 14, 0),
+      agencyId = "MDI",
+      updatedDate = LocalDateTime.now(),
+      deleted = null,
+    )
   }
 
   private fun buildReport(
@@ -107,8 +131,8 @@ class ReportResourceIT : IntegrationTestBase() {
     return ReportDetail(
       id, "{}",
       "user_id",
-      1,
-      1234,
+      2,
+      1235,
       LocalDateTime.now(),
       "IN_PROGRESS",
       null,
@@ -121,7 +145,6 @@ class ReportResourceIT : IntegrationTestBase() {
       mutableListOf(statement),
     )
   }
-
 
   @DisplayName("GET /report/{id}")
   @Nested
@@ -226,8 +249,9 @@ class ReportResourceIT : IntegrationTestBase() {
       @BeforeEach
       fun insertReport() {
         repo.save(buildReport(1, "GU1234A"))
-        //reportSummary.save(buildReportSummary(1, "GU1234A"))
-        repo.save(buildReportIncludeStatements(1, "GU1234B", true))
+        statementAmendmentRepository.save(statementAmendment)
+        statementRepository.save(statement)
+        repo.save(buildReportIncludeStatements(2, "GU1234B", true))
       }
 
       @Test
@@ -267,7 +291,9 @@ class ReportResourceIT : IntegrationTestBase() {
             .expectBodyList(ReportSummary::class.java)
             .returnResult().responseBody!!
 
+        val actualReport = response.first()
         assertThat(response.size).isEqualTo(1)
+        assertThat(actualReport.id).isEqualTo(expectedReportwithStatements.id)
       }
 
       @Test
