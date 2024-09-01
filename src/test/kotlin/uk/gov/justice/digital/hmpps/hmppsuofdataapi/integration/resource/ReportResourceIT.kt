@@ -7,26 +7,22 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.Statement
-import uk.gov.justice.digital.hmpps.hmppsuofdataapi.dto.StatementAmendment
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.IntegrationTestBase
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportSummary
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.StatementAmendment
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportSummaryRepository
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.Statement as StatementDataClass
 
 class ReportResourceIT : IntegrationTestBase() {
 
   @Autowired
   lateinit var repo: ReportRepository
+  lateinit var reportSummary: ReportSummaryRepository
   lateinit var expectedReport: ReportSummary
-
-  val amendmentId = 345L
-  final val statementId = 123L
-  val dateSubmitted = LocalDateTime.now()
-  val deleted = null
-  val additionalComment = "This is an additional comment I originally said left leg, but it was the right leg"
 
   final val statementAmendment = StatementAmendment(
     id = 345L,
@@ -36,7 +32,7 @@ class ReportResourceIT : IntegrationTestBase() {
     additionalComment = "This is an additional comment I originally said left leg, but it was the right leg",
   )
 
-  val statement = Statement(
+  val statement = StatementDataClass(
     id = 1L,
     reportId = 2L,
     createdDate = LocalDateTime.now(),
@@ -122,9 +118,10 @@ class ReportResourceIT : IntegrationTestBase() {
       "MDI",
       LocalDateTime.now(),
       null,
-      mutableListOf(),
+      mutableListOf(statement),
     )
   }
+
 
   @DisplayName("GET /report/{id}")
   @Nested
@@ -229,6 +226,7 @@ class ReportResourceIT : IntegrationTestBase() {
       @BeforeEach
       fun insertReport() {
         repo.save(buildReport(1, "GU1234A"))
+        //reportSummary.save(buildReportSummary(1, "GU1234A"))
         repo.save(buildReportIncludeStatements(1, "GU1234B", true))
       }
 
@@ -270,7 +268,6 @@ class ReportResourceIT : IntegrationTestBase() {
             .returnResult().responseBody!!
 
         assertThat(response.size).isEqualTo(1)
-        val actualReport = response.first()
       }
 
       @Test
