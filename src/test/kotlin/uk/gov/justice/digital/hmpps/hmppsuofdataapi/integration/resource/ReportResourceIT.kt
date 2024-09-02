@@ -126,7 +126,6 @@ class ReportResourceIT : IntegrationTestBase() {
   private fun buildReportIncludeStatements(
     id: Long,
     offenderNumber: String,
-    includeStatement: Boolean,
   ): ReportDetail {
     return ReportDetail(
       id, "{}",
@@ -209,6 +208,29 @@ class ReportResourceIT : IntegrationTestBase() {
           .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
           .exchange()
           .expectStatus().isNotFound
+      }
+
+      @Test
+      fun `can retrieve report by id include statements`() {
+        webTestClient.get().uri {
+          it.path("/report/1")
+            .queryParam("includeStatements", "true")
+            .build()
+        }
+          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+          .exchange()
+          .expectStatus().isOk
+          .expectBody().jsonPath("$.id").isEqualTo(1)
+          .jsonPath("$.sequenceNo").isEqualTo(1)
+          .jsonPath("$.incidentDate").isEqualTo("2024-01-01T14:00:00")
+          .jsonPath("$.status").isEqualTo("IN_PROGRESS")
+          .jsonPath("$.agencyId").isEqualTo("MDI")
+          .jsonPath("$.userId").isEqualTo("user_id")
+          .jsonPath("$.reporterName").isEqualTo("reporter_name")
+          .jsonPath("$.offenderNo").isEqualTo("GU1234A")
+          .jsonPath("$.bookingId").isEqualTo(1234)
+          .jsonPath("$.formResponse").isEqualTo("")
+          .jsonPath("$.statements").isEmpty
       }
     }
   }
