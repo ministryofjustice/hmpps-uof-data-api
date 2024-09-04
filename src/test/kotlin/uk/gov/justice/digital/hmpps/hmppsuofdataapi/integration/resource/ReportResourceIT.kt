@@ -195,6 +195,19 @@ class ReportResourceIT : IntegrationTestBase() {
       }
 
       @Test
+      fun `can retrieve reports by prisoner number with report Statements and Form Response`() {
+        val response: List<ReportSummary> =
+          webTestClient.get().uri("/prisoner/GU1234A/reports?includeStatements=true&includeFormResponse=true")
+            .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+            .exchange()
+            .expectStatus().isOk
+            .expectBodyList(ReportSummary::class.java)
+            .returnResult().responseBody!!
+
+        assertThat(response.size).isEqualTo(1)
+      }
+
+      @Test
       fun `searching by prisoner number with no reports`() {
         val response: List<ReportDetail> = webTestClient.get().uri("/prisoner/GU0000B/reports")
           .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
