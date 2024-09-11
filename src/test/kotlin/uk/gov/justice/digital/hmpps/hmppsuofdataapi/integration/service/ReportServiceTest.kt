@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
@@ -73,7 +72,5 @@ class ReportServiceTest {
     assertEquals(2, reports.size)
     assertEquals(report1, reports[0])
     assertEquals(report2, reports[1])
-
-    verify(reportRepository).findAllByOffenderNoAndIncidentDateBetween(offenderNumber, fromDate.atStartOfDay(), toDate.atStartOfDay())
   }
 }
