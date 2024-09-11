@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
 import org.mockito.Mock
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportSummaryRepository
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.service.ReportService
 import java.time.LocalDate
 import java.time.LocalDateTime
+import org.mockito.kotlin.whenever
 
 class ReportServiceTest {
 
@@ -59,7 +59,7 @@ class ReportServiceTest {
     val report1 = buildReport(1, "GU1234A")
     val report2 = buildReport(2, "GU1234B", 1235)
 
-    `when`(
+    whenever(
       reportRepository.findAllByOffenderNoAndIncidentDateBetween(
         offenderNumber,
         fromDate.atStartOfDay(),
