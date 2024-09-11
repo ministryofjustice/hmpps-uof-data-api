@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.`when`
+import org.mockito.kotlin.whenever
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportRepository
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.repository.ReportSummaryRepository
@@ -74,7 +74,7 @@ class ReportServiceCoroutinesTest {
       },
     )
 
-    `when`(
+    whenever(
       reportRepository.findAllByOffenderNoAndIncidentDateBetween(
         offenderNumber,
         fromDate.atStartOfDay(),
@@ -82,8 +82,8 @@ class ReportServiceCoroutinesTest {
       ),
     ).thenReturn(listOf(report1, report2))
 
-    `when`(reportServiceMock.getReportsByOffenderNumberAndDateWindow(offenderNumber, fromDate, toDate)).thenReturn(listReportDetail)
-    `when`(reportServiceMock.getPrisonContentFor(offenderNumber, fromDate, toDate)).thenReturn(expectedHmppsSubjectAccessRequestContent)
+    whenever(reportServiceMock.getReportsByOffenderNumberAndDateWindow(offenderNumber, fromDate, toDate)).thenReturn(listReportDetail)
+    whenever(reportServiceMock.getPrisonContentFor(offenderNumber, fromDate, toDate)).thenReturn(expectedHmppsSubjectAccessRequestContent)
 
     val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, fromDate, toDate)
 
