@@ -37,8 +37,8 @@ class ReportServiceCoroutinesTest {
 
   val report1 = buildReport(1, offenderNumber)
   val report2 = buildReport(2, offenderNumberB)
-  val fromDate = LocalDate.of(2024, 9, 1)
-  val toDate = LocalDate.of(2024, 9, 30)
+  var fromDate = LocalDate.of(2024, 1, 1)
+  var toDate = LocalDate.of(2024, 1, 9)
 
   private fun buildReport(
     id: Long,
@@ -49,14 +49,14 @@ class ReportServiceCoroutinesTest {
       "user_id",
       1,
       1234,
-      LocalDateTime.now(),
+      LocalDateTime.of(2024, 1, 10, 14, 0),
       "IN_PROGRESS",
       null,
       offenderNumber,
       "reporter_name",
-      LocalDateTime.of(2024, 1, 1, 14, 0),
+      LocalDateTime.of(2024, 1, 10, 14, 0),
       "MDI",
-      LocalDateTime.now(),
+      LocalDateTime.of(2024, 1, 10, 14, 0),
       null,
     )
   }
@@ -88,5 +88,22 @@ class ReportServiceCoroutinesTest {
     val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, fromDate, toDate)
 
     assertEquals(gotHmppsSubjectAccessRequestContent, expectedHmppsSubjectAccessRequestContent)
+  }
+
+  @Test
+  fun `test getReportsForSubjectAccess returns correct reports coroutines runTest with only fromDate `() = runTest {
+    val gotListReportDetail = listOf(report1)
+    val listReportDetail = listOf(report1)
+
+    whenever(
+      reportRepository.findAllByOffenderNoAndIncidentDateAfter(
+        offenderNumber,
+        fromDate.atStartOfDay(),
+      ),
+    ).thenReturn(gotListReportDetail)
+
+    val reports = reportService.getReportsForSubjectAccess(offenderNumber, fromDate, null)
+    assertEquals(listReportDetail, gotListReportDetail)
+    assert(reports.size == 1)
   }
 }
