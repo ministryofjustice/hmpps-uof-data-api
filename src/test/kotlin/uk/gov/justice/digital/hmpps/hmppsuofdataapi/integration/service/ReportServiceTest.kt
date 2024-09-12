@@ -22,6 +22,9 @@ class ReportServiceTest {
   @InjectMocks
   private lateinit var reportService: ReportService
 
+  val offenderNumber = "GU1234A"
+  val offenderNumberB = "GU1234B"
+
   @BeforeEach
   fun setUp() {
     reportRepository = mock(ReportRepository::class.java)
@@ -53,11 +56,10 @@ class ReportServiceTest {
 
   @Test
   fun `test getReportsByOffenderNumberAndDateWindow returns correct reports`() {
-    val offenderNumber = "G1234AB"
     val fromDate = LocalDate.of(2024, 9, 1)
     val toDate = LocalDate.of(2024, 9, 30)
-    val report1 = buildReport(1, "GU1234A")
-    val report2 = buildReport(2, "GU1234B", 1235)
+    val report1 = buildReport(1, offenderNumber)
+    val report2 = buildReport(2, offenderNumberB)
 
     whenever(
       reportRepository.findAllByOffenderNoAndIncidentDateBetween(
