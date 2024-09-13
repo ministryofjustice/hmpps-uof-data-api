@@ -2,6 +2,7 @@ package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.service
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
@@ -159,5 +160,26 @@ class ReportServiceCoroutinesTest {
     val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, null, null)
     assertNotNull(listReportDetail)
     assertEquals(expectedHmppsSubjectAccessRequestContent, gotHmppsSubjectAccessRequestContent)
+  }
+
+  @Test
+  fun `test getReportsForSubjectAccess returns null when reports are empty `() = runTest {
+    var listReportDetailVoid: List<ReportDetail> = emptyList()
+
+    whenever(
+      reportRepository.findAllByOffenderNoAndIncidentDateBetween(
+        offenderNumber,
+        fromDate.atStartOfDay(),
+        toDate.atStartOfDay(),
+      ),
+    ).thenReturn(listReportDetailVoid)
+
+    whenever(reportServiceMock.getReportsByOffenderNumberAndDateWindow(offenderNumber, fromDate, toDate)).thenReturn(
+      listReportDetailVoid,
+    )
+
+    val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, fromDate, toDate)
+    assert(listReportDetailVoid.isEmpty())
+    assertNull(gotHmppsSubjectAccessRequestContent)
   }
 }
