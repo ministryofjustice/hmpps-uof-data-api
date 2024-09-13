@@ -1,6 +1,7 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.service
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.InjectMocks
@@ -105,5 +106,58 @@ class ReportServiceCoroutinesTest {
     val reports = reportService.getReportsForSubjectAccess(offenderNumber, fromDate, null)
     assertEquals(listReportDetail, gotListReportDetail)
     assert(reports.size == 1)
+  }
+
+  @Test
+  fun `test getReportsForSubjectAccess returns correct reports coroutines runTest with only toDate `() = runTest {
+    val listReportDetail = listOf(report1, report2)
+
+    val expectedHmppsSubjectAccessRequestContent = HmppsSubjectAccessRequestContent(
+      content = listOf(report1, report2).map {
+        it.toDto(
+          includeStatements = true,
+          includeFormResponse = true,
+        )
+      },
+    )
+
+    whenever(
+      reportRepository.findAllByOffenderNoAndIncidentDateBefore(
+        offenderNumber,
+        toDate.plusDays(1).atStartOfDay(),
+      ),
+    ).thenReturn(listOf(report1, report2))
+
+    whenever(reportServiceMock.getReportsByOffenderNumberAndDateWindow(offenderNumber, fromDate, toDate)).thenReturn(
+      listReportDetail,
+    )
+    val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, null, toDate)
+    assertNotNull(listReportDetail)
+    assertEquals(expectedHmppsSubjectAccessRequestContent, gotHmppsSubjectAccessRequestContent)
+  }
+
+  @Test
+  fun `test getReportsForSubjectAccess returns correct reports coroutines runTest without fromDate and toDate `() = runTest {
+    val listReportDetail = listOf(report1, report2)
+
+    val expectedHmppsSubjectAccessRequestContent = HmppsSubjectAccessRequestContent(
+      content = listOf(report1, report2).map {
+        it.toDto(
+          includeStatements = true,
+          includeFormResponse = true,
+        )
+      },
+    )
+
+    whenever(
+      reportRepository.findAllByOffenderNo(
+        offenderNumber,
+      ),
+    ).thenReturn(listOf(report1, report2))
+
+    whenever(reportServiceMock.getReportDetailByOffenderNumber(offenderNumber)).thenReturn(listReportDetail)
+    val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, null, null)
+    assertNotNull(listReportDetail)
+    assertEquals(expectedHmppsSubjectAccessRequestContent, gotHmppsSubjectAccessRequestContent)
   }
 }
