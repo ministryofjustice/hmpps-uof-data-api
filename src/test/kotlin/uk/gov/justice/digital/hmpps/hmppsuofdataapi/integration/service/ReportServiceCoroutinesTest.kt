@@ -104,7 +104,7 @@ class ReportServiceCoroutinesTest {
     ).thenReturn(gotListReportDetail)
 
     val reports = reportService.getReportsForSubjectAccess(offenderNumber, fromDate, null)
-    assertEquals(listReportDetail, gotListReportDetail)
+
     assertEquals(listReportDetail, reports)
     assert(reports.size == 1)
   }
