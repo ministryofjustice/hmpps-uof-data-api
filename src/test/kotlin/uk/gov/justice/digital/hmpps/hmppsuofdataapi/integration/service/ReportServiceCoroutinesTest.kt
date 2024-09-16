@@ -1,7 +1,6 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.service
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertNotNull
 import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -106,6 +105,7 @@ class ReportServiceCoroutinesTest {
 
     val reports = reportService.getReportsForSubjectAccess(offenderNumber, fromDate, null)
     assertEquals(listReportDetail, gotListReportDetail)
+    assertEquals(listReportDetail, reports)
     assert(reports.size == 1)
   }
 
@@ -133,7 +133,6 @@ class ReportServiceCoroutinesTest {
       listReportDetail,
     )
     val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, null, toDate)
-    assertNotNull(listReportDetail)
     assertEquals(expectedHmppsSubjectAccessRequestContent, gotHmppsSubjectAccessRequestContent)
   }
 
@@ -158,7 +157,6 @@ class ReportServiceCoroutinesTest {
 
     whenever(reportServiceMock.getReportDetailByOffenderNumber(offenderNumber)).thenReturn(listReportDetail)
     val gotHmppsSubjectAccessRequestContent = reportService.getPrisonContentFor(offenderNumber, null, null)
-    assertNotNull(listReportDetail)
     assertEquals(expectedHmppsSubjectAccessRequestContent, gotHmppsSubjectAccessRequestContent)
   }
 
