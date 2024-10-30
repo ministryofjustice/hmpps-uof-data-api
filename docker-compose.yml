@@ -14,7 +14,7 @@ services:
       - SPRING_PROFILES_ACTIVE=dev
 
   use-of-force-db:
-    image: postgres
+    image: postgres:16.4
     networks:
       - hmpps
     container_name: use-of-force-db

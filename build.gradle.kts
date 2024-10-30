@@ -33,7 +33,7 @@ dependencies {
 
   testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0-RC.2")
 
-  runtimeOnly("org.postgresql:postgresql:42.7.3")
+  runtimeOnly("org.postgresql:postgresql:42.7.4")
   testRuntimeOnly("org.flywaydb:flyway-database-postgresql")
   testRuntimeOnly("com.h2database:h2:2.3.232")
 }
