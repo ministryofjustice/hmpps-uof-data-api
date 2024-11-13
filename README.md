@@ -6,3 +6,7 @@
 
 This service exists to expose Use of Force data in a read-only manner.
 Any data input/modification is done via the [Use of Force](https://github.com/ministryofjustice/use-of-force) service.
+
+#### How to sync the project with HMPPS-template-kotlin
+Find out missing commits https://github.com/ministryofjustice/hmpps-template-kotlin/commits/main/ following `sync commit` above.
+Cherry Pick the changes by calling `git cherry-pick <<commit_id>>..<<commit_id>>` if you want to Cherry pick only one commit call `git cherry-pick <<commit_id>>`
