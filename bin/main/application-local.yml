@@ -1,0 +1,23 @@
+server:
+  shutdown: immediate
+
+api:
+  base:
+    url:
+      oauth: http://localhost:9090/auth
+
+management.endpoint:
+  health.cache.time-to-live: 0
+  info.cache.time-to-live: 0
+
+spring:
+  devtools:
+    add-properties: true
+
+  datasource:
+    url: 'jdbc:postgresql://localhost:9432/use-of-force?sslmode=prefer'
+    username: use-of-force
+    password: use-of-force
+
+  jpa:
+    show-sql: false
