@@ -26,7 +26,7 @@ dependencies {
   implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
   implementation("com.squareup.moshi:moshi-adapters:1.15.1")
 
-  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.22")
+  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.24")
   testImplementation("io.jsonwebtoken:jjwt-impl:0.12.6")
   testImplementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
   testImplementation("org.flywaydb:flyway-core")
