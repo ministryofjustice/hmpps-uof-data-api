@@ -198,7 +198,7 @@ class ReportResourceIT : IntegrationTestBase() {
           .jsonPath("$.reporterName").isEqualTo("reporter_name")
           .jsonPath("$.offenderNo").isEqualTo("GU1234A")
           .jsonPath("$.bookingId").isEqualTo(1234)
-          .jsonPath("$.formResponse").isEqualTo("")
+          .jsonPath("$.formResponse").isEmpty
           .jsonPath("$.statements").isEmpty
       }
 
@@ -229,7 +229,7 @@ class ReportResourceIT : IntegrationTestBase() {
           .jsonPath("$.reporterName").isEqualTo("reporter_name")
           .jsonPath("$.offenderNo").isEqualTo("GU1234A")
           .jsonPath("$.bookingId").isEqualTo(1234)
-          .jsonPath("$.formResponse").isEqualTo("")
+          .jsonPath("$.formResponse").isEmpty
           .jsonPath("$.statements").isEmpty
       }
     }
