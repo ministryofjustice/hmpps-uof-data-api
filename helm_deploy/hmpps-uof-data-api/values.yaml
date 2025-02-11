@@ -46,4 +46,4 @@ generic-service:
       - internal
 
 generic-prometheus-alerts:
-  targetApplication: hmpps-uof-data-api
+  targetApplication: move-a-prisoner-alerts-nonprod
