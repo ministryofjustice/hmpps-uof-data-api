@@ -47,27 +47,23 @@ class ReportDetail(
   deleted,
 ) {
 
-  override fun toDto(includeStatements: Boolean?, includeFormResponse: Boolean?): ReportDto {
-    return ReportDto(
-      id = id,
-      formResponse = if (includeFormResponse == true) toJson(formResponse) else null,
-      userId = userId,
-      sequenceNo = sequenceNo,
-      bookingId = bookingId,
-      createdDate = createdDate,
-      status = status,
-      submittedDate = submittedDate,
-      offenderNo = offenderNo,
-      reporterName = reporterName,
-      incidentDate = incidentDate,
-      agencyId = agencyId,
-      updatedDate = updatedDate,
-      deleted = deleted,
-      statements = if (includeStatements == true) statements.map { it.toDto() } else null,
-    )
-  }
+  override fun toDto(includeStatements: Boolean?, includeFormResponse: Boolean?): ReportDto = ReportDto(
+    id = id,
+    formResponse = if (includeFormResponse == true) toJson(formResponse) else null,
+    userId = userId,
+    sequenceNo = sequenceNo,
+    bookingId = bookingId,
+    createdDate = createdDate,
+    status = status,
+    submittedDate = submittedDate,
+    offenderNo = offenderNo,
+    reporterName = reporterName,
+    incidentDate = incidentDate,
+    agencyId = agencyId,
+    updatedDate = updatedDate,
+    deleted = deleted,
+    statements = if (includeStatements == true) statements.map { it.toDto() } else null,
+  )
 
-  private fun toJson(formResponse: String): Map<String, Any?> {
-    return ObjectMapper().readValue(formResponse, object : TypeReference<Map<String, Any?>?>() {}) ?: mapOf()
-  }
+  private fun toJson(formResponse: String): Map<String, Any?> = ObjectMapper().readValue(formResponse, object : TypeReference<Map<String, Any?>?>() {}) ?: mapOf()
 }

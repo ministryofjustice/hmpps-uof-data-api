@@ -14,13 +14,11 @@ data class StatementAmendment(
   val dateSubmitted: LocalDateTime,
   val deleted: LocalDateTime?,
 ) {
-  fun toDto(): StatementAmendmentDto {
-    return StatementAmendmentDto(
-      id = id,
-      statementId = statementId,
-      additionalComment = additionalComment,
-      dateSubmitted = dateSubmitted,
-      deleted = deleted,
-    )
-  }
+  fun toDto(): StatementAmendmentDto = StatementAmendmentDto(
+    id = id,
+    statementId = statementId,
+    additionalComment = additionalComment,
+    dateSubmitted = dateSubmitted,
+    deleted = deleted,
+  )
 }

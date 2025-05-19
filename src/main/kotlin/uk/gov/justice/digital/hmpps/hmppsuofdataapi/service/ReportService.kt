@@ -16,25 +16,17 @@ class ReportService(
   private val reportRepository: ReportRepository,
   private val reportSummaryRepository: ReportSummaryRepository,
 ) : HmppsPrisonSubjectAccessRequestReactiveService {
-  fun getReport(reportId: Long, includeStatements: Boolean): Report? {
-    return reportRepository.findById(reportId).getOrNull()?.toDto(includeStatements, true)
+  fun getReport(reportId: Long, includeStatements: Boolean): Report? = reportRepository.findById(reportId).getOrNull()?.toDto(includeStatements, true)
+
+  fun getReportsByOffenderNumber(offenderNumber: String, includeStatements: Boolean, includeFormResponse: Boolean): List<Report> = if (!includeStatements && !includeFormResponse) {
+    reportSummaryRepository.findAllByOffenderNo(offenderNumber).map { it.toDto(false, false) }
+  } else {
+    getReportDetailByOffenderNumber(offenderNumber).map { it.toDto(includeStatements, includeFormResponse) }
   }
 
-  fun getReportsByOffenderNumber(offenderNumber: String, includeStatements: Boolean, includeFormResponse: Boolean): List<Report> {
-    return if (!includeStatements && !includeFormResponse) {
-      reportSummaryRepository.findAllByOffenderNo(offenderNumber).map { it.toDto(false, false) }
-    } else {
-      getReportDetailByOffenderNumber(offenderNumber).map { it.toDto(includeStatements, includeFormResponse) }
-    }
-  }
+  fun getReportDetailByOffenderNumber(offenderNumber: String): List<ReportDetail> = reportRepository.findAllByOffenderNo(offenderNumber)
 
-  fun getReportDetailByOffenderNumber(offenderNumber: String): List<ReportDetail> {
-    return reportRepository.findAllByOffenderNo(offenderNumber)
-  }
-
-  override suspend fun getPrisonContentFor(prn: String, fromDate: LocalDate?, toDate: LocalDate?): HmppsSubjectAccessRequestContent? {
-    return wrapInSubjectAccessFormat(prn, getReportsForSubjectAccess(prn, fromDate, toDate))
-  }
+  override suspend fun getPrisonContentFor(prn: String, fromDate: LocalDate?, toDate: LocalDate?): HmppsSubjectAccessRequestContent? = wrapInSubjectAccessFormat(prn, getReportsForSubjectAccess(prn, fromDate, toDate))
 
   suspend fun getReportsForSubjectAccess(prn: String, fromDate: LocalDate?, toDate: LocalDate?): List<ReportDetail> = coroutineScope {
     if (fromDate != null && toDate != null) {
@@ -49,22 +41,18 @@ class ReportService(
     return@coroutineScope getReportDetailByOffenderNumber(prn)
   }
 
-  fun getReportsByOffenderNumberAndDateWindow(offenderNumber: String, fromDate: LocalDate, toDate: LocalDate): List<ReportDetail> {
-    return reportRepository.findAllByOffenderNoAndIncidentDateBetween(offenderNumber, fromDate.atStartOfDay(), toDate.atStartOfDay())
-  }
+  fun getReportsByOffenderNumberAndDateWindow(offenderNumber: String, fromDate: LocalDate, toDate: LocalDate): List<ReportDetail> = reportRepository.findAllByOffenderNoAndIncidentDateBetween(offenderNumber, fromDate.atStartOfDay(), toDate.atStartOfDay())
 
-  fun wrapInSubjectAccessFormat(offenderNumber: String, reports: List<ReportDetail>): HmppsSubjectAccessRequestContent? {
-    return if (reports.isEmpty()) {
-      null
-    } else {
-      HmppsSubjectAccessRequestContent(
-        content = reports.map {
-          it.toDto(
-            includeStatements = true,
-            includeFormResponse = true,
-          )
-        },
-      )
-    }
+  fun wrapInSubjectAccessFormat(offenderNumber: String, reports: List<ReportDetail>): HmppsSubjectAccessRequestContent? = if (reports.isEmpty()) {
+    null
+  } else {
+    HmppsSubjectAccessRequestContent(
+      content = reports.map {
+        it.toDto(
+          includeStatements = true,
+          includeFormResponse = true,
+        )
+      },
+    )
   }
 }
