@@ -44,23 +44,21 @@ class ReportServiceCoroutinesTest {
   private fun buildReport(
     id: Long,
     offenderNumber: String,
-  ): ReportDetail {
-    return ReportDetail(
-      id, "{}",
-      "user_id",
-      1,
-      1234,
-      LocalDateTime.of(2024, 1, 10, 14, 0),
-      "IN_PROGRESS",
-      null,
-      offenderNumber,
-      "reporter_name",
-      LocalDateTime.of(2024, 1, 10, 14, 0),
-      "MDI",
-      LocalDateTime.of(2024, 1, 10, 14, 0),
-      null,
-    )
-  }
+  ): ReportDetail = ReportDetail(
+    id, "{}",
+    "user_id",
+    1,
+    1234,
+    LocalDateTime.of(2024, 1, 10, 14, 0),
+    "IN_PROGRESS",
+    null,
+    offenderNumber,
+    "reporter_name",
+    LocalDateTime.of(2024, 1, 10, 14, 0),
+    "MDI",
+    LocalDateTime.of(2024, 1, 10, 14, 0),
+    null,
+  )
 
   @Test
   fun `test getPrisonContentFor returns correct reports coroutines runTest`() = runTest {

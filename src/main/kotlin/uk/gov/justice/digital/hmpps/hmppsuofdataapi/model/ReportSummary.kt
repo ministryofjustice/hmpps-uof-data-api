@@ -37,23 +37,21 @@ open class ReportSummary(
   deleted,
 ) {
 
-  override fun toDto(includeStatements: Boolean?, includeFormResponse: Boolean?): ReportDto {
-    return ReportDto(
-      id = id,
-      formResponse = null,
-      userId = userId,
-      sequenceNo = sequenceNo,
-      bookingId = bookingId,
-      createdDate = createdDate,
-      status = status,
-      submittedDate = submittedDate,
-      offenderNo = offenderNo,
-      reporterName = reporterName,
-      incidentDate = incidentDate,
-      agencyId = agencyId,
-      updatedDate = updatedDate,
-      deleted = deleted,
-      statements = null,
-    )
-  }
+  override fun toDto(includeStatements: Boolean?, includeFormResponse: Boolean?): ReportDto = ReportDto(
+    id = id,
+    formResponse = null,
+    userId = userId,
+    sequenceNo = sequenceNo,
+    bookingId = bookingId,
+    createdDate = createdDate,
+    status = status,
+    submittedDate = submittedDate,
+    offenderNo = offenderNo,
+    reporterName = reporterName,
+    incidentDate = incidentDate,
+    agencyId = agencyId,
+    updatedDate = updatedDate,
+    deleted = deleted,
+    statements = null,
+  )
 }

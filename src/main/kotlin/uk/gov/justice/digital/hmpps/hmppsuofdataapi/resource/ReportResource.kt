@@ -60,9 +60,7 @@ class ReportResource(
     @PathVariable
     id: Long,
     @RequestParam(name = "includeStatements", required = false, defaultValue = "false") includeStatements: Boolean = false,
-  ): Report {
-    return reportService.getReport(id, includeStatements) ?: throw ReportNotFoundException(id.toString())
-  }
+  ): Report = reportService.getReport(id, includeStatements) ?: throw ReportNotFoundException(id.toString())
 
   @GetMapping("/prisoner/{offenderNumber}/reports")
   @ResponseStatus(HttpStatus.OK)
@@ -98,7 +96,5 @@ class ReportResource(
     offenderNumber: String,
     @RequestParam(name = "includeStatements", required = false, defaultValue = "false") includeStatements: Boolean = false,
     @RequestParam(name = "includeFormResponse", required = false, defaultValue = "false") includeFormResponse: Boolean = false,
-  ): List<Report> {
-    return reportService.getReportsByOffenderNumber(offenderNumber, includeStatements, includeFormResponse)
-  }
+  ): List<Report> = reportService.getReportsByOffenderNumber(offenderNumber, includeStatements, includeFormResponse)
 }

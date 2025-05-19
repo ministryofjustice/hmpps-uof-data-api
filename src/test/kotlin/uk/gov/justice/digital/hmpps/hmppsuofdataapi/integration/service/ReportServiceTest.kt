@@ -36,23 +36,21 @@ class ReportServiceTest {
     id: Long,
     offenderNumber: String,
     bookingId: Long? = 1234,
-  ): ReportDetail {
-    return ReportDetail(
-      id, "{}",
-      "user_id",
-      1,
-      1234,
-      LocalDateTime.now(),
-      "IN_PROGRESS",
-      null,
-      offenderNumber,
-      "reporter_name",
-      LocalDateTime.of(2024, 1, 1, 14, 0),
-      "MDI",
-      LocalDateTime.now(),
-      null,
-    )
-  }
+  ): ReportDetail = ReportDetail(
+    id, "{}",
+    "user_id",
+    1,
+    1234,
+    LocalDateTime.now(),
+    "IN_PROGRESS",
+    null,
+    offenderNumber,
+    "reporter_name",
+    LocalDateTime.of(2024, 1, 1, 14, 0),
+    "MDI",
+    LocalDateTime.now(),
+    null,
+  )
 
   @Test
   fun `test getReportsByOffenderNumberAndDateWindow returns correct reports`() {
