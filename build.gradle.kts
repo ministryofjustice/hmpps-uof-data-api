@@ -20,13 +20,13 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
   implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
 
-  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.11")
+  implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.8.12")
 
   implementation("com.squareup.moshi:moshi:1.15.2")
   implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
   implementation("com.squareup.moshi:moshi-adapters:1.15.2")
 
-  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.32")
+  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.33")
   testImplementation("io.jsonwebtoken:jjwt-impl:0.13.0")
   testImplementation("io.jsonwebtoken:jjwt-jackson:0.13.0")
   testImplementation("org.flywaydb:flyway-core")
