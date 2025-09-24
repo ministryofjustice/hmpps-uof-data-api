@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("uk.gov.justice.hmpps.gradle-spring-boot") version "9.0.2"
+  id("uk.gov.justice.hmpps.gradle-spring-boot") version "9.1.1"
   kotlin("plugin.spring") version "2.2.20"
   kotlin("plugin.jpa") version "2.2.20"
   id("org.jetbrains.kotlinx.kover") version "0.9.2"
@@ -35,7 +35,7 @@ dependencies {
 
   runtimeOnly("org.postgresql:postgresql:42.7.8")
   testRuntimeOnly("org.flywaydb:flyway-database-postgresql")
-  testRuntimeOnly("com.h2database:h2:2.3.232")
+  testRuntimeOnly("com.h2database:h2:2.4.240")
 }
 
 kotlin {
