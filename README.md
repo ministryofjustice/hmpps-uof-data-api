@@ -9,3 +9,4 @@ Any data input/modification is done via the [Use of Force](https://github.com/mi
 #### How to sync the project with HMPPS-template-kotlin
 Find out missing commits https://github.com/ministryofjustice/hmpps-template-kotlin/commits/main/ following `sync commit` above.
 Cherry Pick the changes by calling `git cherry-pick <<commit_id>>..<<commit_id>>` if you want to Cherry pick only one commit call `git cherry-pick <<commit_id>>`
+
