@@ -1,10 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("uk.gov.justice.hmpps.gradle-spring-boot") version "9.1.1"
+  id("uk.gov.justice.hmpps.gradle-spring-boot") version "9.1.3"
   kotlin("plugin.spring") version "2.2.20"
   kotlin("plugin.jpa") version "2.2.20"
-  id("org.jetbrains.kotlinx.kover") version "0.9.2"
+  id("org.jetbrains.kotlinx.kover") version "0.9.3"
 }
 
 configurations {
@@ -26,7 +26,7 @@ dependencies {
   implementation("com.squareup.moshi:moshi-kotlin:1.15.2")
   implementation("com.squareup.moshi:moshi-adapters:1.15.2")
 
-  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.34")
+  testImplementation("io.swagger.parser.v3:swagger-parser:2.1.35")
   testImplementation("io.jsonwebtoken:jjwt-impl:0.13.0")
   testImplementation("io.jsonwebtoken:jjwt-jackson:0.13.0")
   testImplementation("org.flywaydb:flyway-core")
