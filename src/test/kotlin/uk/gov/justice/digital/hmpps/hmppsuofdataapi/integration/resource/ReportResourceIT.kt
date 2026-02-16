@@ -7,7 +7,7 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.IntegrationTestBase
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.IntegrationTestBaseWithPostgres
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportDetail
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.ReportSummary
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.StatementAmendment
@@ -18,7 +18,7 @@ import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.model.Statement as StatementDataClass
 
-class ReportResourceIT : IntegrationTestBase() {
+class ReportResourceIT : IntegrationTestBaseWithPostgres() {
 
   @Autowired
   lateinit var repo: ReportRepository
