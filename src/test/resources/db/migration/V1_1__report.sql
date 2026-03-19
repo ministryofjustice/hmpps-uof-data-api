@@ -12,7 +12,8 @@ CREATE TABLE report (
     incident_date timestamp with time zone,
     agency_id character varying(6),
     updated_date timestamp with time zone,
-    deleted timestamp with time zone
+    deleted timestamp with time zone,
+    completed_date timestamptz NULL
 );
 
 CREATE SEQUENCE form_id_seq

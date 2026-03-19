@@ -1,0 +1,125 @@
+[
+  {
+    "id": 680,
+    "sequenceNo": 10,
+    "createdDate": "2026-02-03T08:56:43.522",
+    "updatedDate": "2026-02-13T09:17:26.079",
+    "incidentDate": "2025-11-10T01:00:00",
+    "submittedDate": "2026-02-13T09:14:51.96",
+    "deleted": null,
+    "status": "COMPLETE",
+    "agencyId": "WRI",
+    "userId": "ABC_GEN",
+    "reporterName": "Abc Admin",
+    "offenderNo": "G5942UJ",
+    "bookingId": 1037656,
+    "formResponse": {
+      "evidence": {
+        "cctvRecording": "NO",
+        "baggedEvidence": false,
+        "photographsTaken": false
+      },
+      "involvedStaff": [
+        {
+          "name": "Abc Admin",
+          "email": "abc@justice.gov.uk",
+          "staffId": 485828,
+          "lastName": "Admin",
+          "username": "ABC_ADM",
+          "verified": true,
+          "firstName": "Abc",
+          "activeCaseLoadId": "WRI"
+        }
+      ],
+      "incidentDetails": {
+        "plannedUseOfForce": false,
+        "incidentLocationId": "a57e75a8-b355-4088-afed-75a973d9e0b7"
+      },
+      "useOfForceDetails": {
+        "taserDrawn": false,
+        "guidingHold": false,
+        "escortingHold": false,
+        "bodyWornCamera": "NO",
+        "weaponsObserved": "NO",
+        "handcuffsApplied": false,
+        "bittenByPrisonDog": false,
+        "restraintPositions": "NONE",
+        "positiveCommunication": false,
+        "pavaDrawnAgainstPrisoner": false,
+        "batonDrawnAgainstPrisoner": false,
+        "painInducingTechniquesUsed": "NONE",
+        "personalProtectionTechniques": false
+      },
+      "reasonsForUseOfForce": {
+        "reasons": [
+          "ASSAULT_ON_ANOTHER_PRISONER"
+        ]
+      },
+      "relocationAndInjuries": {
+        "f213CompletedBy": "Mr Fowler",
+        "prisonerInjuries": false,
+        "healthcareInvolved": false,
+        "prisonerRelocation": "OWN_CELL",
+        "relocationCompliancy": true,
+        "staffMedicalAttention": false,
+        "prisonerHospitalisation": false
+      }
+    },
+    "statements": [
+      {
+        "id": 862,
+        "reportId": 680,
+        "createdDate": "2026-02-13T09:14:51.961",
+        "updatedDate": "2026-02-13T09:16:12.017",
+        "submittedDate": "2026-02-13T09:16:12.017",
+        "deleted": null,
+        "nextReminderDate": "2026-02-14T09:14:51.96",
+        "overdueDate": "2026-02-16T09:14:51.96",
+        "removalRequestedDate": null,
+        "userId": "BCD_GEN",
+        "name": "BCD Gen",
+        "email": "bcd@justice.gov.uk",
+        "statementStatus": "SUBMITTED",
+        "lastTrainingMonth": 1,
+        "lastTrainingYear": 2000,
+        "jobStartYear": 2000,
+        "staffId": 485828,
+        "inProgress": true,
+        "removalRequestedReason": null,
+        "statement": "gen",
+        "statementAmendments": [ ]
+      },
+      {
+        "id": 863,
+        "reportId": 680,
+        "createdDate": "2026-02-13T09:14:51.961",
+        "updatedDate": "2026-02-13T09:17:26.079",
+        "submittedDate": "2026-02-13T09:17:26.079",
+        "deleted": null,
+        "nextReminderDate": "2026-02-14T09:14:51.96",
+        "overdueDate": "2026-02-16T09:14:51.96",
+        "removalRequestedDate": null,
+        "userId": "ABC_ADM",
+        "name": "Abc adm",
+        "email": "abc@justice.gov.uk",
+        "statementStatus": "SUBMITTED",
+        "lastTrainingMonth": 1,
+        "lastTrainingYear": 2000,
+        "jobStartYear": 2000,
+        "staffId": 485828,
+        "inProgress": true,
+        "removalRequestedReason": null,
+        "statement": "adm",
+        "statementAmendments": [
+          {
+            "id": 51,
+            "statementId": 863,
+            "dateSubmitted": "2026-02-13T09:17:53.271",
+            "deleted": null,
+            "additionalComment": "additional comment"
+          }
+        ]
+      }
+    ]
+  }
+]

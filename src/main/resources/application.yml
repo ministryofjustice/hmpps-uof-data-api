@@ -26,9 +26,7 @@ spring:
             token-uri: ${api.base.url.oauth}/oauth/token
 
   jackson:
-    date-format: "yyyy-MM-dd HH:mm:ss"
-    serialization:
-      WRITE_DATES_AS_TIMESTAMPS: false
+    time-zone: "Europe/London"
 
   jpa:
     show-sql: false
@@ -77,3 +75,9 @@ management:
     info:
       cache:
         time-to-live: 2000ms
+
+hmpps:
+  sar:
+    template:
+      path: /sar/templates/sar_template.mustache
+      enabled: true

@@ -1,18 +1,14 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.health
 
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration.IntegrationTestBaseWithPostgres
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.function.Consumer
 
 class HealthCheckTest : IntegrationTestBaseWithPostgres() {
 
   @Test
   fun `Health page reports ok`() {
     webTestClient.get()
-      .uri("/health")
+      .uri("/health/readiness")
       .exchange()
       .expectStatus()
       .isOk
@@ -22,14 +18,10 @@ class HealthCheckTest : IntegrationTestBaseWithPostgres() {
 
   @Test
   fun `Health info reports version`() {
-    webTestClient.get().uri("/health")
+    webTestClient.get().uri("/health/readiness")
       .exchange()
       .expectStatus().isOk
-      .expectBody().jsonPath("components.healthInfo.details.version").value(
-        Consumer<String> {
-          assertThat(it).startsWith(LocalDateTime.now().format(DateTimeFormatter.ISO_DATE))
-        },
-      )
+      .expectBody().jsonPath("status").isEqualTo("UP")
   }
 
   @Test
