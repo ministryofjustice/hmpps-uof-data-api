@@ -1,28 +1,27 @@
 package uk.gov.justice.digital.hmpps.hmppsuofdataapi.integration
 
+import org.springframework.context.annotation.Import
 import org.springframework.test.context.DynamicPropertyRegistry
 import org.springframework.test.context.DynamicPropertySource
-import org.testcontainers.containers.PostgreSQLContainer
-import org.testcontainers.utility.DockerImageName
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.config.PostgresContainer
+import uk.gov.justice.digital.hmpps.hmppsuofdataapi.config.TestDatabaseConfiguration
 
+@Import(TestDatabaseConfiguration::class)
 abstract class IntegrationTestBaseWithPostgres : IntegrationTestBase() {
   companion object {
-    private val postgres = PostgreSQLContainer(DockerImageName.parse("postgres:16.0"))
-      .withDatabaseName("use-of-force")
-      .withUsername("use-of-force")
-      .withPassword("use-of-force")
-      .withReuse(true)
-
-    init {
-      postgres.start()
-    }
+    private val pgContainer = PostgresContainer.instance
 
     @JvmStatic
     @DynamicPropertySource
-    fun configureProperties(registry: DynamicPropertyRegistry) {
-      registry.add("spring.datasource.url", postgres::getJdbcUrl)
-      registry.add("spring.datasource.username", postgres::getUsername)
-      registry.add("spring.datasource.password", postgres::getPassword)
+    fun properties(registry: DynamicPropertyRegistry) {
+      pgContainer?.run {
+        registry.add("spring.datasource.url", pgContainer::getJdbcUrl)
+        registry.add("spring.datasource.username", pgContainer::getUsername)
+        registry.add("spring.datasource.password", pgContainer::getPassword)
+        registry.add("spring.flyway.url", pgContainer::getJdbcUrl)
+        registry.add("spring.flyway.user", pgContainer::getUsername)
+        registry.add("spring.flyway.password", pgContainer::getPassword)
+      }
     }
   }
 }

@@ -158,7 +158,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `access forbidden when no role`() {
         webTestClient.get().uri("/report/1")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf()))
+          .headers(setAuthorisation(roles = listOf()))
           .exchange()
           .expectStatus().isForbidden
       }
@@ -166,7 +166,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `access forbidden with wrong role`() {
         webTestClient.get().uri("/report/1")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_PINEAPPLES")))
+          .headers(setAuthorisation(roles = listOf("ROLE_PINEAPPLES")))
           .exchange()
           .expectStatus().isForbidden
       }
@@ -182,7 +182,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `can retrieve report by id`() {
         webTestClient.get().uri("/report/1")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+          .headers(setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
           .exchange()
           .expectStatus().isOk
           .expectBody().jsonPath("$.id").isEqualTo(1)
@@ -201,7 +201,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `requesting report that doesn't exist returns 404`() {
         webTestClient.get().uri("/report/2")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+          .headers(setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
           .exchange()
           .expectStatus().isNotFound
       }
@@ -213,7 +213,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
             .queryParam("includeStatements", "true")
             .build()
         }
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+          .headers(setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
           .exchange()
           .expectStatus().isOk
           .expectBody().jsonPath("$.id").isEqualTo(1)
@@ -248,7 +248,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `access forbidden when no role`() {
         webTestClient.get().uri("/prisoner/GU1234A/reports")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf()))
+          .headers(setAuthorisation(roles = listOf()))
           .exchange()
           .expectStatus().isForbidden
       }
@@ -256,7 +256,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `access forbidden with wrong role`() {
         webTestClient.get().uri("/prisoner/GU1234A/reports")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_PINEAPPLES")))
+          .headers(setAuthorisation(roles = listOf("ROLE_PINEAPPLES")))
           .exchange()
           .expectStatus().isForbidden
       }
@@ -275,7 +275,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `can retrieve reports by prisoner number with report`() {
         val response: List<ReportSummary> = webTestClient.get().uri("/prisoner/GU1234A/reports")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+          .headers(setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
           .exchange()
           .expectStatus().isOk
           .expectBodyList(ReportSummary::class.java)
@@ -303,7 +303,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       fun `can retrieve reports by prisoner number with report include Statements and include Form Response`() {
         val response: List<ReportSummary> =
           webTestClient.get().uri("/prisoner/GU1234B/reports?includeStatements=true&includeFormResponse=true")
-            .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+            .headers(setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
             .exchange()
             .expectStatus().isOk
             .expectBodyList(ReportSummary::class.java)
@@ -317,7 +317,7 @@ class ReportResourceIT : IntegrationTestBaseWithPostgres() {
       @Test
       fun `searching by prisoner number with no reports`() {
         val response: List<ReportDetail> = webTestClient.get().uri("/prisoner/GU0000B/reports")
-          .headers(jwtAuthHelper.setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
+          .headers(setAuthorisation(roles = listOf("ROLE_SAR_DATA_ACCESS")))
           .exchange()
           .expectStatus().isOk
           .expectBodyList(ReportDetail::class.java)
