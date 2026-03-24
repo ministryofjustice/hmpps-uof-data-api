@@ -36,19 +36,50 @@
         "incidentLocationId": "a57e75a8-b355-4088-afed-75a973d9e0b7"
       },
       "useOfForceDetails": {
-        "taserDrawn": false,
+        "pavaUsed": true,
+        "batonUsed": true,
+        "pavaDrawn": true,
+        "batonDrawn": true,
+        "taserDrawn": true,
         "guidingHold": false,
+        "weaponTypes": [
+          {
+            "weaponType": "test"
+          }
+        ],
         "escortingHold": false,
+        "redDotWarning": true,
+        "taserDeployed": true,
+        "arcWarningUsed": false,
         "bodyWornCamera": "NO",
-        "weaponsObserved": "NO",
-        "handcuffsApplied": false,
+        "weaponsObserved": "YES",
+        "handcuffsApplied": true,
+        "taserReenergised": true,
         "bittenByPrisonDog": false,
-        "restraintPositions": "NONE",
-        "positiveCommunication": false,
+        "restraintPositions": [
+          "FACE_DOWN",
+          "FACE_DOWN__BALANCE_DISPLACEMENT",
+          "FACE_DOWN__CONVERSION_TO_RBH"
+        ],
+        "taserCycleExtended": false,
+        "bodyWornCameraNumbers": [
+          {
+            "cameraNum": "123"
+          },
+          {
+            "cameraNum": "456"
+          }
+        ],
+        "positiveCommunication": true,
+        "taserOperativePresent": true,
         "pavaDrawnAgainstPrisoner": false,
         "batonDrawnAgainstPrisoner": false,
-        "painInducingTechniquesUsed": "NONE",
-        "personalProtectionTechniques": false
+        "painInducingTechniquesUsed": [
+          "FINAL_LOCK_FLEXION",
+          "SHOULDER_CONTROL"
+        ],
+        "guidingHoldOfficersInvolved": 2,
+        "personalProtectionTechniques": true
       },
       "reasonsForUseOfForce": {
         "reasons": [
@@ -62,7 +93,17 @@
         "prisonerRelocation": "OWN_CELL",
         "relocationCompliancy": true,
         "staffMedicalAttention": false,
-        "prisonerHospitalisation": false
+        "prisonerHospitalisation": false,
+        "staffNeedingMedicalAttention": [
+          {
+            "name": "Kimmy",
+            "hospitalisation": true
+          },
+          {
+            "name": "Bloggs",
+            "hospitalisation": false
+          }
+        ]
       }
     },
     "statements": [

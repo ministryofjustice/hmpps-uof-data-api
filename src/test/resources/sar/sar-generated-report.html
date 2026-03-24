@@ -7,13 +7,14 @@
 <table class="data-table">
   <tbody>
   <tr>
-    <td class="data-column-50">Incident date</td>
-    <td class="data-column-50">Date submitted</td>
+    <td class="data-column-25">Incident date</td>
+    <td class="data-column-25">Date submitted</td>
+    <td class="data-column-50">Updated date</td>
   </tr>
   <tr>
     <td>10 November 2025, 1:00:00 am</td>
     <td>13 February 2026, 9:14:51 am</td>
-    <td></td>
+    <td>13 February 2026, 9:17:26 am</td>
   </tr>
   </tbody>
 </table>
@@ -22,8 +23,7 @@
   <tr>
     <td class="data-column-25">Status</td>
     <td class="data-column-25">Agency ID</td>
-    <td class="data-column-25">Reporter name</td>
-    <td class="data-column-25"></td>
+    <td class="data-column-50">Reporter name</td>
   </tr>
   <tr>
     <td>COMPLETE</td>
@@ -110,12 +110,19 @@
   <tbody>
   <tr>
     <td class="data-column-25">Body-worn camera</td>
-    <td class="data-column-50">Body-worn camera numbers</td>
+    <td class="data-column-25">Body-worn camera numbers</td>
     <td class="data-column-25">Handcuffs applied</td>
+    <td class="data-column-25">Bitten by prison dog</td>
   </tr>
   <tr>
     <td>NO</td>
-    <td>No Data Held</td>
+    <td>
+      <ul>
+        <li>123</li>
+        <li>456</li>
+      </ul>
+    </td>
+    <td>Yes</td>
     <td>No</td>
   </tr>
   </tbody>
@@ -123,16 +130,58 @@
 <table class="data-table">
   <tbody>
   <tr>
-    <td class="data-column-25">Pava drawn</td>
+    <td class="data-column-50">Pava drawn</td>
+    <td class="data-column-25">Pava drawn against prisoner</td>
     <td class="data-column-25">Pava used</td>
-    <td class="data-column-25">Baton drawn</td>
+  </tr>
+  <tr>
+    <td>Yes</td>
+    <td>No</td>
+    <td>Yes</td>
+  </tr>
+  </tbody>
+</table>
+<table class="data-table">
+  <tbody>
+  <tr>
+    <td class="data-column-50">Baton drawn</td>
+    <td class="data-column-25">Baton drawn against prisoner</td>
     <td class="data-column-25">Baton used</td>
   </tr>
   <tr>
-    <td>No Data Held</td>
-    <td>No Data Held</td>
-    <td>No Data Held</td>
-    <td>No Data Held</td>
+    <td>Yes</td>
+    <td>No</td>
+    <td>Yes</td>
+  </tr>
+  </tbody>
+</table>
+<table class="data-table">
+  <tbody>
+  <tr>
+    <td class="data-column-25">Taser drawn</td>
+    <td class="data-column-25">Taser operative present</td>
+    <td class="data-column-25">Red dot warning given</td>
+    <td class="data-column-25">Arc warning used</td>
+  </tr>
+  <tr>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>Yes</td>
+    <td>No</td>
+  </tr>
+  </tbody>
+</table>
+<table class="data-table">
+  <tbody>
+  <tr>
+    <td class="data-column-25">Taser deployed</td>
+    <td class="data-column-25">Taser cycle extended</td>
+    <td class="data-column-50">Taser re-energised</td>
+  </tr>
+  <tr>
+    <td>Yes</td>
+    <td>No</td>
+    <td>Yes</td>
   </tr>
   </tbody>
 </table>
@@ -140,13 +189,20 @@
   <tbody>
   <tr>
     <td class="data-column-25">Pain inducing techniques</td>
-    <td class="data-column-50">Pain inducing techniques used</td>
+    <td class="data-column-25">Pain inducing techniques used</td>
     <td class="data-column-25">Personal protection techniques</td>
+    <td class="data-column-25">GuidingHold Officers Involved</td>
   </tr>
   <tr>
     <td>No Data Held</td>
-    <td>NONE</td>
-    <td>No</td>
+    <td>
+      <ul>
+        <li>FINAL_LOCK_FLEXION</li>
+        <li>SHOULDER_CONTROL</li>
+      </ul>
+    </td>
+    <td>Yes</td>
+    <td>2</td>
   </tr>
   </tbody>
 </table>
@@ -158,9 +214,9 @@
     <td class="data-column-25">Weapon types</td>
   </tr>
   <tr>
-    <td>No</td>
-    <td>NO</td>
-    <td>No Data Held</td>
+    <td>Yes</td>
+    <td>YES</td>
+    <td>test</td>
   </tr>
   </tbody>
 </table>
@@ -175,7 +231,9 @@
     <td>No</td>
     <td>No</td>
     <td>
-      <li>NONE</li>
+      <li>FACE_DOWN</li>
+      <li>FACE_DOWN__BALANCE_DISPLACEMENT</li>
+      <li>FACE_DOWN__CONVERSION_TO_RBH</li>
     </td>
   </tr>
   </tbody>
@@ -243,6 +301,25 @@
   <tr>
     <td>OWN_CELL</td>
     <td>No Data Held</td>
+  </tr>
+  </tbody>
+</table>
+<br>
+<h4>Staff Needing Medical Attention</h4>
+<br>
+<table class="data-table">
+  <tbody>
+  <tr>
+    <td class="data-column-50">Name</td>
+    <td class="data-column-50">Hospitalisation</td>
+  </tr>
+  <tr>
+    <td>Kimmy</td>
+    <td>Yes</td>
+  </tr>
+  <tr>
+    <td>Bloggs</td>
+    <td>No</td>
   </tr>
   </tbody>
 </table>
