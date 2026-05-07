@@ -11,5 +11,6 @@
     }
   ],
   "rebaseWhen": "conflicted",
-  "schedule": ["before 7am every weekday", "after 1am every weekday"]
+  "schedule": ["before 7am every weekday", "after 1am every weekday"],
+  "enabled": true
 }
