@@ -9,6 +9,14 @@ plugins {
 
 configurations {
   testImplementation { exclude(group = "org.junit.vintage") }
+  all {
+    resolutionStrategy.eachDependency {
+      if (requested.group == "io.netty") {
+        useVersion("4.2.13.Final")
+        because("Override vulnerable transitive Netty versions")
+      }
+    }
+  }
 }
 
 dependencies {
