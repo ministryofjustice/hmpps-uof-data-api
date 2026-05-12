@@ -39,8 +39,8 @@ dependencies {
   testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
   testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.testcontainers:testcontainers-postgresql:2.0.5")
+  runtimeOnly("org.postgresql:postgresql:42.7.11")
 
-  runtimeOnly("org.postgresql:postgresql")
   runtimeOnly("com.zaxxer:HikariCP")
   testRuntimeOnly("org.flywaydb:flyway-database-postgresql")
   testRuntimeOnly("com.h2database:h2:2.4.240")
