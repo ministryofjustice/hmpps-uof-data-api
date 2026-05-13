@@ -10,6 +10,7 @@
       "groupSlug": "all-gradle-minor-patch"
     }
   ],
+  "ignoreDeps": ["hmpps-subject-access-request-test-support"],
   "rebaseWhen": "conflicted",
   "schedule": ["before 7am every weekday", "after 1am every weekday"],
   "enabled": true
