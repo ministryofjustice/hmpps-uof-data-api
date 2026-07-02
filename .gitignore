@@ -19,6 +19,9 @@ cmake-build-debug/
 out/
 *.iml
 
+# Secrets
+.env
+
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
