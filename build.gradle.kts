@@ -12,7 +12,7 @@ configurations {
   all {
     resolutionStrategy.eachDependency {
       if (requested.group == "io.netty") {
-        useVersion("4.2.13.Final")
+        useVersion("4.2.15.Final")
         because("Override vulnerable transitive Netty versions")
       }
     }
