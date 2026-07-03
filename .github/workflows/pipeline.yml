@@ -28,10 +28,6 @@ jobs:
     secrets: inherit
     with:
       environment: ${{ matrix.environments }}
-  app_version:
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.app_version.outputs.version }}
   kotlin_validate:
     name: Validate the kotlin
     uses: ministryofjustice/hmpps-github-actions/.github/workflows/gradle_verify.yml@v2 # WORKFLOW_VERSION
