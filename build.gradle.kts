@@ -15,6 +15,10 @@ configurations {
         useVersion("4.2.15.Final")
         because("Override vulnerable transitive Netty versions")
       }
+      if (requested.group == "io.opentelemetry" && requested.name == "opentelemetry-api") {
+        useVersion("1.62.0")
+        because("Override vulnerable transitive opentelemetry-api version")
+      }
     }
   }
 }
