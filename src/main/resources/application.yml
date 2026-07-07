@@ -8,7 +8,6 @@ spring:
   codec:
     max-in-memory-size: 10MB
 
-
   security:
     oauth2:
       resource-server:
