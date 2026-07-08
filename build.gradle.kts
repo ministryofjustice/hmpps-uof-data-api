@@ -1,9 +1,9 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  id("uk.gov.justice.hmpps.gradle-spring-boot") version "10.5.0"
+  id("uk.gov.justice.hmpps.gradle-spring-boot") version "10.5.7"
   kotlin("plugin.spring") version "2.4.0"
-  kotlin("plugin.jpa") version "2.3.21"
+  kotlin("plugin.jpa") version "2.4.0"
   idea
 }
 
@@ -51,7 +51,7 @@ dependencies {
   testImplementation("org.mockito.kotlin:mockito-kotlin:6.3.0")
   testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.testcontainers:testcontainers-postgresql:2.0.5")
-  runtimeOnly("org.postgresql:postgresql:42.7.12")
+  runtimeOnly("org.postgresql:postgresql:42.7.13")
 
   runtimeOnly("com.zaxxer:HikariCP")
   testRuntimeOnly("org.flywaydb:flyway-database-postgresql")
