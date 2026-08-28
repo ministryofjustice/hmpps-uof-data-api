@@ -12,7 +12,7 @@ configurations {
   all {
     resolutionStrategy.eachDependency {
       if (requested.group == "io.netty") {
-        useVersion("4.2.16.Final")
+        useVersion("4.2.17.Final")
         because("Override vulnerable transitive Netty versions")
       }
       if (requested.group == "io.opentelemetry" && requested.name == "opentelemetry-api") {
