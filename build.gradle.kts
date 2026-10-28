@@ -9,18 +9,6 @@ plugins {
 
 configurations {
   testImplementation { exclude(group = "org.junit.vintage") }
-  all {
-    resolutionStrategy.eachDependency {
-      if (requested.group == "io.netty") {
-        useVersion("4.2.17.Final")
-        because("Override vulnerable transitive Netty versions")
-      }
-      if (requested.group == "io.opentelemetry" && requested.name == "opentelemetry-api") {
-        useVersion("1.62.0")
-        because("Override vulnerable transitive opentelemetry-api version")
-      }
-    }
-  }
 }
 
 dependencies {
